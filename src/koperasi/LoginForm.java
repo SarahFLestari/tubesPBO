@@ -44,6 +44,7 @@ ResultSet rs = null;
         btnexit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setLocation(new java.awt.Point(425, 250));
 
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 1, 24)); // NOI18N
         jLabel1.setText("LOGIN");
@@ -69,6 +70,11 @@ ResultSet rs = null;
         });
 
         btnexit.setText("Exit");
+        btnexit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnexitActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -135,6 +141,7 @@ ResultSet rs = null;
                 JOptionPane.showMessageDialog(null,"Berhasil Log in");
                 welcome w = new welcome();
                 w.setVisible(true);
+                this.setVisible(false);
                 
             } else {
                 JOptionPane.showMessageDialog(null,"Password atau username salah","Access Denied",JOptionPane.ERROR_MESSAGE);
@@ -144,6 +151,11 @@ ResultSet rs = null;
             
         }
     }//GEN-LAST:event_btnloginActionPerformed
+
+    private void btnexitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnexitActionPerformed
+        System.exit(0);
+        
+    }//GEN-LAST:event_btnexitActionPerformed
 
     /**
      * @param args the command line arguments
