@@ -125,7 +125,7 @@ ResultSet rs = null;
     private void btnloginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnloginActionPerformed
         // TODO add your handling code here:
         conn = MySqlConnect.ConnectDB();
-        String Sql = "Select * from login where username = ? and password = ?";
+        String Sql = "Select * from admin where username = ? and password = ?";
         try{
             pst = conn.prepareStatement(Sql);
             pst.setString(1,tfusername.getText());
