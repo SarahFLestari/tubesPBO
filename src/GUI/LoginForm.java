@@ -3,13 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package koperasi;
+package GUI;
+import java.sql.*;
+//import java.util.logging.Level;
+//import java.util.logging.Logger;
+import javax.swing.*;
 
 /**
  *
  * @author MBP
  */
 public class LoginForm extends javax.swing.JFrame {
+Connection conn = null;
+PreparedStatement pst = null;
+ResultSet rs = null;
+
 
     /**
      * Creates new form LoginForm
@@ -36,6 +44,7 @@ public class LoginForm extends javax.swing.JFrame {
         btnexit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setLocation(new java.awt.Point(425, 250));
 
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 1, 24)); // NOI18N
         jLabel1.setText("LOGIN");
@@ -54,8 +63,18 @@ public class LoginForm extends javax.swing.JFrame {
 
         btnlogin.setText("Log in");
         btnlogin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnlogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnloginActionPerformed(evt);
+            }
+        });
 
         btnexit.setText("Exit");
+        btnexit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnexitActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -108,6 +127,35 @@ public class LoginForm extends javax.swing.JFrame {
     private void tfusernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfusernameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfusernameActionPerformed
+
+    private void btnloginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnloginActionPerformed
+        // TODO add your handling code here:
+        //conn = MySqlConnect.ConnectDB();
+        String Sql = "Select * from admin where username = ? and password = ?";
+        try{
+            pst = conn.prepareStatement(Sql);
+            pst.setString(1,tfusername.getText());
+            pst.setString(2,tfpwd.getText());
+            rs = pst.executeQuery();
+            if(rs.next()){
+                JOptionPane.showMessageDialog(null,"Berhasil Log in");
+                welcome w = new welcome();
+                w.setVisible(true);
+                this.setVisible(false);
+                
+            } else {
+                JOptionPane.showMessageDialog(null,"Password atau username salah","Access Denied",JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+            
+        }
+    }//GEN-LAST:event_btnloginActionPerformed
+
+    private void btnexitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnexitActionPerformed
+        System.exit(0);
+        
+    }//GEN-LAST:event_btnexitActionPerformed
 
     /**
      * @param args the command line arguments
